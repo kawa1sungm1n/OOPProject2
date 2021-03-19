@@ -3,12 +3,12 @@ import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 
-public class TextFieldValidator {
+public class TextFieldValidator  {
 	
 	private String regExp = "\\w";
 	private Color errorColor = Color.RED;
 	private JTextField myTarget;
-
+	
 	
 	//
 	public TextFieldValidator(JTextField myTarget, Color myErrorColor) {
@@ -38,7 +38,7 @@ public class TextFieldValidator {
 	}
 	
 	public void reset() {
-		myTarget.setBorder(BorderFactory.createEmptyBorder());
+		myTarget.setBorder(new JTextField().getBorder());
 		return;
 	}
 }
