@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Random;
+
 
 public class MainFrame extends JFrame implements ActionListener {
 	
@@ -22,8 +24,22 @@ public class MainFrame extends JFrame implements ActionListener {
 	private TextFieldValidator thirdValidator;	
 	private JButton btnOk;
 	private JButton btnReset;
+	private int [] fermi = new int[3];
+	private Random rand = new Random();
 	
 	public MainFrame() {
+		
+		for (int i = 0; i < 3; i++) {
+			int num = rand.nextInt(10);
+			for (int j = 0; j < i; j++) {
+				if (num == fermi[j]) {
+					num = rand.nextInt(10);
+					j = -1;
+				}
+			}
+			fermi[i] = num;
+		}
+		
         this.setTitle("Concert Ticket Calculator");						// set Frame's name
 		this.setSize(FRAME_WIDTH,FRAME_HEIGHT);
 		this.setLocation(FRAME_X,FRAME_Y);
@@ -58,6 +74,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		
 		btnOk = new JButton("Ok");
 		btnOk.setBounds(12, 164, 60, 37);
+		btnOk.addActionListener(this);
 		getContentPane().add(btnOk);
 		
 		btnReset = new JButton("Reset");
@@ -71,6 +88,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		
 		resultArea = new JTextField();
 		resultArea.setBounds(231, 71, 219, 289);
+		resultArea.setEnabled(false);					// 맞는지 체크하기 ! ! !
 		getContentPane().add(resultArea);
 		resultArea.setColumns(10);
 		
@@ -81,7 +99,6 @@ public class MainFrame extends JFrame implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent event) {
-		
 		if (event.getSource() == btnReset) {
 			firstNum.setText("");
 			secondNum.setText("");
@@ -90,8 +107,12 @@ public class MainFrame extends JFrame implements ActionListener {
 			firstValidator.reset();
 			secondValidator.reset();
 			thirdValidator.reset();
+		}
+		
+		if (event.getSource() == btnOk) {
 			
 		}
+		
 	}
 	
 
