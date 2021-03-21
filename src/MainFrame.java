@@ -15,13 +15,9 @@ public class MainFrame extends JFrame implements ActionListener {
     private JLabel lblTitle;
     private JLabel lblQuestion;
     private JLabel lblHint;
-	private JTextField firstNum;
-	private JTextField secondNum;
-	private JTextField thirdNum;
+    private JTextField [] nums = {new JTextField(), new JTextField(), new JTextField()};
 	private JTextField resultArea;
-	private TextFieldValidator firstValidator;
-	private TextFieldValidator secondValidator;
-	private TextFieldValidator thirdValidator;	
+	private TextFieldValidator[] validators = new TextFieldValidator[3];;
 	private JButton btnOk;
 	private JButton btnReset;
 	private int [] fermi = new int[3];
@@ -57,20 +53,14 @@ public class MainFrame extends JFrame implements ActionListener {
 		lblQuestion.setBounds(12, 46, 184, 15);
 		getContentPane().add(lblQuestion);
 		
-		firstNum = new JTextField();
-		firstNum.setBounds(12, 71, 60, 21);
-		getContentPane().add(firstNum);
-		firstNum.setColumns(10);
+		for (int i = 0; i < 3; i++) {
+			getContentPane().add(nums[i]);
+			nums[i].setColumns(10);
+		}
 		
-		secondNum = new JTextField();
-		secondNum.setColumns(10);
-		secondNum.setBounds(12, 102, 60, 21);
-		getContentPane().add(secondNum);
-		
-		thirdNum = new JTextField();
-		thirdNum.setColumns(10);
-		thirdNum.setBounds(12, 133, 60, 21);
-		getContentPane().add(thirdNum);
+		nums[0].setBounds(12, 71, 60, 21);		
+		nums[1].setBounds(12, 102, 60, 21);
+		nums[2].setBounds(12, 133, 60, 21);
 		
 		btnOk = new JButton("Ok");
 		btnOk.setBounds(12, 164, 60, 37);
@@ -92,27 +82,50 @@ public class MainFrame extends JFrame implements ActionListener {
 		getContentPane().add(resultArea);
 		resultArea.setColumns(10);
 		
-		firstValidator = new TextFieldValidator(firstNum);
-		secondValidator = new TextFieldValidator(secondNum);
-		thirdValidator = new TextFieldValidator(thirdNum);
+		for (int i = 0; i < 3; i++) {
+			validators[i] =  new TextFieldValidator(nums[i]);
+			validators[i].setRegExp("^[0-9]$");
+		}
 		
+//		firstValidator = new TextFieldValidator(firstNum);
+//		secondValidator = new TextFieldValidator(secondNum);
+//		thirdValidator = new TextFieldValidator(thirdNum);
+//		
+//		firstValidator.setRegExp("^[0-9]$");
+//		secondValidator.setRegExp("^[0-9]$"); 
+//		thirdValidator.setRegExp("^[0-9]$"); 
 	}
 	
 	public void actionPerformed(ActionEvent event) {
 		if (event.getSource() == btnReset) {
-			firstNum.setText("");
-			secondNum.setText("");
-			thirdNum.setText("");
+			for (int i = 0; i < 3; i++) {
+				nums[i].setText("");
+				validators[i].reset();		
+			}
 			resultArea.setText("");
-			firstValidator.reset();
-			secondValidator.reset();
-			thirdValidator.reset();
+			for (int i = 0; i < 3; i++) {
+				int num = rand.nextInt(10);
+				for (int j = 0; j < i; j++) {
+					if (num == fermi[j]) {
+						num = rand.nextInt(10);
+						j = -1;
+					}
+				}
+				fermi[i] = num;
+			}			
 		}
 		
 		if (event.getSource() == btnOk) {
+			boolean checkValidator = true;
+			for (int i = 0; i < 3; i++) {
+				if(!validators[i].check())
+					checkValidator = false;  
+			}
+			if (!(checkValidator)) {
+				return;
+			}
 			
-		}
-		
+		}		
 	}
 	
 

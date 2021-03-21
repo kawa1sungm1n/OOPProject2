@@ -28,17 +28,18 @@ public class TextFieldValidator  {
 		this.errorColor = errorColor;
 	}
 	
+	public void reset() {
+		myTarget.setBorder(new JTextField().getBorder());
+		return;
+	}
+	
 	public boolean check() {
 		if (myTarget.getText().matches(regExp)) {
-			 return true;
+			reset(); 
+			return true;
 		} else {
 			myTarget.setBorder(BorderFactory.createLineBorder(errorColor, 1));
 			return false;
 		}
-	}
-	
-	public void reset() {
-		myTarget.setBorder(new JTextField().getBorder());
-		return;
 	}
 }
