@@ -183,7 +183,6 @@ public class MainFrame extends JFrame implements ActionListener {
 			counts = 0;					// reset the user's OK button click counts
 		}
 		if (event.getSource() == btnOk) { 	// When user click Ok button
-			counts++;					// The number of user attempts increases one by one as the game attempted
 			boolean checkValidator = true;		// Create checkValidator variable
 			for (int i = 0; i < 3; i++) {
 				if(!validators[i].check())
@@ -199,7 +198,7 @@ public class MainFrame extends JFrame implements ActionListener {
 				guesses += nums[i].getText() + " ";		// Adds empty space between the output input values
 			}
 			guesses += ": ";	// Add a colon to the end of the three input values
-			
+			counts++;	// The number of user attempts increases one by one as the game attempted
 			// Add Fermi, Pico, or nano to the entered value
 			String [] hint = new String[3];
 			for (int i = 0; i < 3; i++) {
