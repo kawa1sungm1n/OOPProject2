@@ -24,8 +24,8 @@ public class TextFieldValidator  {
 	 * @param myErrorColor an error occurs, replace the border in the text box with red.
 	 */
 	public TextFieldValidator(JTextField myTarget, Color myErrorColor) {
-		this.myTarget = myTarget;
-		this.errorColor = myErrorColor;
+		this.myTarget = myTarget;		// get myTarget
+		this.errorColor = myErrorColor;	// get errorColor
 	}
 	
 	/**
@@ -33,7 +33,7 @@ public class TextFieldValidator  {
 	 * @param myTarget Set the target number.
 	 */
 	public TextFieldValidator(JTextField myTarget) {
-		this.myTarget = myTarget;
+		this.myTarget = myTarget;		// get myTarget
 	}
 	
 	/**
@@ -41,7 +41,7 @@ public class TextFieldValidator  {
 	 * @param regExp for outputting the values you enter
 	 */
 	public void setRegExp(String regExp) {
-		this.regExp = regExp;
+		this.regExp = regExp;	// get regExp "\\w"
 	}
 	
 	/** 
@@ -49,7 +49,7 @@ public class TextFieldValidator  {
 	 * @param errorColor Set border color default to red
 	 */
 	public void setErrorColor(Color errorColor) {
-		this.errorColor = errorColor;
+		this.errorColor = errorColor;	// get errorColor
 	}
 	
 	/**
@@ -69,7 +69,7 @@ public class TextFieldValidator  {
 		if (myTarget.getText().matches(regExp)) {
 			reset(); 
 			return true;
-		} else {	// if not
+		} else {	// if not,
 			myTarget.setBorder(BorderFactory.createLineBorder(errorColor, 1));	// output error color(red)
 			return false;
 		}
